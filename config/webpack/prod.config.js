@@ -29,7 +29,8 @@ module.exports = (config) => {
           loader: 'ts-loader',
           options: {
             context: __cwd,
-            configFile: path.resolve(__cwd, './tsconfig.json')
+            configFile: path.resolve(__cwd, './tsconfig.json'),
+            appendTsSuffixTo: [/\.vue$/]
           }
         }
       ]

@@ -2,6 +2,15 @@ var path = require('path')
 var MiniCssExtractPlugin = require('mini-css-extract-plugin')
 var __cwd = process.cwd()
 
+function getVueStyleLoaderConfig (dev, modules = false) {
+  return {
+    loader: 'vue-style-loader',
+    options: {
+      sourceMap: dev
+    }
+  }
+}
+
 function getCssLoaderConfig (dev, modules = false) {
   return {
     loader: 'css-loader',
@@ -56,6 +65,7 @@ function getStyleLoaderConfig (dev = true) {
     exclude: /\.m(odule)?\.css$/,
     use: [
       getMiniCssExtractLoaderConfig(dev),
+      getVueStyleLoaderConfig(dev),
       getCssLoaderConfig(dev),
       getPostCssLoaderConfig(dev)
     ]
@@ -117,6 +127,7 @@ function ExtractTextPlugin (dev = true) {
   })
 }
 module.exports = {
+  getVueStyleLoaderConfig,
   getStyleLoaderConfig,
   getImageLoaderConfig,
   getFileLoaderConfig,

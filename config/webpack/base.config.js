@@ -7,7 +7,7 @@
 var webpack = require('webpack')
 var path = require('path')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
-
+var VueLoaderPlugin = require('vue-loader/lib/plugin')
 var __cwd = process.cwd()
 var {
   getFileLoaderConfig,
@@ -29,7 +29,8 @@ module.exports = (config = {}, dev = true) => {
     ExtractTextPlugin(dev),
     new webpack.ProvidePlugin({
       APP: path.resolve(__cwd, 'src/utils/app')
-    })
+    }),
+    new VueLoaderPlugin()
   ]
   return {
     mode: dev ? 'development' : 'production',
@@ -63,6 +64,18 @@ module.exports = (config = {}, dev = true) => {
             }
           }
         },
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader',
+          options: {
+            loaders: {
+              ts: {
+                // put the path (relative or absolute) to the cloned repo below
+                loader: 'ts-loader'
+              }
+            }
+          }
+        },
         ...getStyleLoaderConfig(dev),
         getImageLoaderConfig(dev),
         getFileLoaderConfig(dev)
@@ -75,6 +88,7 @@ module.exports = (config = {}, dev = true) => {
         path.resolve(__cwd, 'src')
       ],
       extensions: [
+        '.vue',
         '.tsx',
         '.ts',
         '.jsx',

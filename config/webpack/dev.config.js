@@ -15,27 +15,31 @@ module.exports = (config) => {
   // const tsconfigFileContent = require(path.resolve(__dirname, '../tsconfig.json'))
   // tsconfigFileContent.compilerOptions.baseUrl = __cwd
   baseConfig.module.rules.push(
-    {
-      test: /\.tsx?$/,
-      include: path.resolve(__cwd, 'src'),
-      exclude: /node_modules/,
-      use: [
-        {
-          loader: 'awesome-typescript-loader',
-          options: {
-            // configFileContent: tsconfigFileContent,
-            // configFileName: path.resolve(__dirname, '../tsconfig.json'),
-            useCache: true,
-            useBabel: true,
-            babelOptions: {
-              configFile: path.resolve(__cwd, './.babelrc')
-            },
-            babelCore: '@babel/core'
-          }
-        }
-      ]
-    }
+    // {
+    //   test: /\.tsx?$/,
+    //   include: path.resolve(__cwd, 'src'),
+    //   exclude: /node_modules/,
+    //   use: [
+    //     {
+    //       loader: 'awesome-typescript-loader',
+    //       options: {
+    //         // configFileContent: tsconfigFileContent,
+    //         // configFileName: path.resolve(__dirname, '../tsconfig.json'),
+    //         useCache: true,
+    //         useBabel: true,
+    //         babelOptions: {
+    //           configFile: path.resolve(__cwd, './.babelrc')
+    //         },
+    //         babelCore: '@babel/core'
+    //       }
+    //     }
+    //   ]
+    // }
   )
+  baseConfig.module.rules = baseConfig.module.rules.concat([
+    { test: /\.ts$/, loader: 'ts-loader', options: { appendTsSuffixTo: [/TS\.vue$/] } },
+    { test: /\.tsx$/, loader: 'babel-loader!ts-loader', options: { appendTsxSuffixTo: [/TSX\.vue$/] } }
+  ])
   if (customWebpackConfig) {
     const finalConfig = customWebpackConfig(baseConfig, 'dev')
     if (finalConfig) {
