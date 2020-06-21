@@ -2,7 +2,7 @@ var path = require('path')
 var MiniCssExtractPlugin = require('mini-css-extract-plugin')
 var __cwd = process.cwd()
 
-function getVueStyleLoaderConfig (dev, modules = false) {
+function getVueStyleLoaderConfig (dev) {
   return {
     loader: 'vue-style-loader',
     options: {
@@ -62,39 +62,23 @@ function getMiniCssExtractLoaderConfig (dev) {
 function getStyleLoaderConfig (dev = true) {
   return [{
     test: /\.css$/,
-    exclude: /\.m(odule)?\.css$/,
+    include: path.resolve(__cwd, 'src'),
     use: [
       getMiniCssExtractLoaderConfig(dev),
-      getVueStyleLoaderConfig(dev),
+      // getVueStyleLoaderConfig(dev),
       getCssLoaderConfig(dev),
       getPostCssLoaderConfig(dev)
     ]
   }, {
-    test: /\.m(oudle)?.css$/,
-    include: path.resolve(__cwd, 'src'),
-    use: [
-      getMiniCssExtractLoaderConfig(dev),
-      getCssLoaderConfig(dev, true),
-      getPostCssLoaderConfig(dev, true)
-    ]
-  }, {
-    test: /\.styl$/,
+    test: /\.styl(us)?$/,
     include: path.resolve(__cwd, 'src'),
     exclude: /\.m(odule)?\.styl$/,
     use: [
       getMiniCssExtractLoaderConfig(dev),
+      // getVueStyleLoaderConfig(dev),
       getCssLoaderConfig(dev),
       getPostCssLoaderConfig(dev),
       getStylusLoaderConfig(dev)
-    ]
-  }, {
-    test: /\.m(odule)?.styl$/,
-    include: path.resolve(__cwd, 'src'),
-    use: [
-      getMiniCssExtractLoaderConfig(dev),
-      getCssLoaderConfig(dev, true),
-      getPostCssLoaderConfig(dev, true),
-      getStylusLoaderConfig(dev, true)
     ]
   }]
 }
@@ -121,7 +105,7 @@ function getFileLoaderConfig (dev = true) {
 function ExtractTextPlugin (dev = true) {
   return new MiniCssExtractPlugin({
     filename: dev ? '[name].css' : 'css/' + '[name].[hash:8].css',
-    chunkFilename: dev ? '[id].css' : 'css/' + '[id].[hash:8].css',
+    chunkFilename: dev ? '[name].css' : 'css/' + '[name].[hash:8].css',
     allChunks: true,
     ignoreOrder: true
   })

@@ -69,10 +69,10 @@ module.exports = (config = {}, dev = true) => {
           loader: 'vue-loader',
           options: {
             loaders: {
-              ts: {
-                // put the path (relative or absolute) to the cloned repo below
-                loader: 'ts-loader'
-              }
+            //   ts: {
+            //     // put the path (relative or absolute) to the cloned repo below
+            //     loader: 'ts-loader'
+            //   }
             }
           }
         },
@@ -102,6 +102,14 @@ module.exports = (config = {}, dev = true) => {
         '@': path.join(__cwd, 'src')
       }
     },
+    // node: {
+    //   dgram: 'empty',
+    //   fs: 'empty',
+    //   net: 'empty',
+    //   tls: 'empty',
+    //   child_process: 'empty',
+    //   module: 'empty'
+    // },
     devtool: dev ? 'source-map' : ''
   }
 }
