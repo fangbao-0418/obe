@@ -4,26 +4,27 @@
       class
     </h1>
     <div @click="toClick(2)">
-      hello class {{msg}}
+      hello class {{ msg }}
     </div>
   </div>
 </template>
 
 <script lang='ts'>
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
-  @Component
-  class Hello extends Vue  {
-    data () {
-      return {
-        msg: 'abc'
-      }
-    }
-    toClick = (path: string) => {
-      console.log(this, path, 'click')
+import Vue from 'vue'
+import Component from 'vue-class-component'
+@Component
+class Hello extends Vue {
+  data () {
+    return {
+      msg: 'abc'
     }
   }
-  export default Hello
+
+  toClick = (path: string) => {
+    console.log(this, path, 'click')
+  }
+}
+export default Hello
 </script>
 
 <style lang="stylus" scoped>

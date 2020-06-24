@@ -46,7 +46,7 @@ module.exports = (config = {}, dev = true) => {
       rules: [
         {
           enforce: 'pre',
-          test: /\.(js|ts)x?$/,
+          test: /\.(vue|js|ts)x?$/,
           include: path.resolve(__cwd, 'src'),
           use: [
             'source-map-loader',

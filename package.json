@@ -24,6 +24,7 @@
     "@babel/preset-env": "^7.9.6",
     "@types/node": "8.10.52",
     "autoprefixer": "^9.6.1",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-import": "^1.12.1",
     "chalk": "^2.4.2",
@@ -69,5 +70,8 @@
     "bin",
     "lib",
     "config"
-  ]
+  ],
+  "devDependencies": {
+    "eslint-plugin-vue": "^7.0.0-alpha.6"
+  }
 }

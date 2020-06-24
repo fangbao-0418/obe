@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>default</h1>
-    <div>hello {{msg}}</div>
+    <div>hello {{ msg }}</div>
   </div>
 </template>
 
