@@ -10,7 +10,7 @@
   },
   "scripts": {
     "lib": "npx babel src/scripts  -d ./lib/scripts --no-babelrc",
-    "dev": "node ./src/scripts/start.js",
+    "dev": "node ./src/scripts/start.js --port 3002",
     "build": "node ./src/scripts/build.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
