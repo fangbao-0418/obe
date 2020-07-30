@@ -8,6 +8,7 @@
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const program = require('commander')
+const detect = require('detect-port')
 program
   .option('-p, --port <number>', 'specified port of server')
   .option('-e, --entry <string>', 'specified entry of app')
@@ -27,6 +28,7 @@ const options = {
     colors: true,
     errors: true
   },
+  // quiet: true,
   // proxy: {
   //   '/api': {
   //     target: 'https://host.cn',
@@ -44,7 +46,23 @@ const options = {
 }
 WebpackDevServer.addDevServerEntrypoints(webpackConfig, options)
 const compiler = webpack(webpackConfig)
-const server = new WebpackDevServer(compiler, options)
-server.listen(options.port, options.host, () => {
-  console.log('Starting server on http://' + options.host + ':' + options.port)
+
+detect(port, (err, _port) => {
+  if (err) {
+    console.log(err)
+  }
+
+  if (port === _port) {
+    serverStart(options.port)
+  } else {
+    console.log(`port: ${port} was occupied, try port: ${_port}`)
+    serverStart(_port)
+  }
 })
+
+function serverStart (port) {
+  const server = new WebpackDevServer(compiler, options)
+  server.listen(port, options.host, () => {
+    console.log('Starting server on http://' + options.host + ':' + port)
+  })
+}
